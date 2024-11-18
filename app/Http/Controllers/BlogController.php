@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Http\Request;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 class BlogController extends Controller
 {
@@ -33,9 +35,14 @@ class BlogController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $slug)
+    public function show(string $slug, YamlFrontMatter $yamlFrontMatter)
     {
-        return view("content/{$slug}");
+        $viewPath = "content/{$slug}";
+        $path = resource_path("views/{$viewPath}.md");
+        $document = $yamlFrontMatter::parseFile($path);
+        $content = Markdown::convert($document->body())->getContent();
+
+        return view('post', ['content' => $content, 'article' => $document]);
     }
 
     /**
