@@ -48,6 +48,8 @@ return [
         League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension::class,
         League\CommonMark\Extension\Table\TableExtension::class,
         League\CommonMark\Extension\FrontMatter\FrontMatterExtension::class,
+        League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension::class,
+        League\CommonMark\Extension\TableOfContents\TableOfContentsExtension::class,
     ],
 
     /*
@@ -68,7 +70,17 @@ return [
     'renderer' => [
         'block_separator' => "\n",
         'inner_separator' => "\n",
-        'soft_break'      => "\n",
+        'soft_break' => "\n",
+    ],
+
+    'table_of_contents' => [
+        'html_class' => 'table-of-contents',
+        'position' => 'before-headings',
+        'style' => 'bullet',
+        'min_heading_level' => 1,
+        'max_heading_level' => 6,
+        'normalize' => 'relative',
+        'placeholder' => null,
     ],
 
     /*
@@ -89,10 +101,10 @@ return [
     */
 
     'commonmark' => [
-        'enable_em'              => true,
-        'enable_strong'          => true,
-        'use_asterisk'           => true,
-        'use_underscore'         => true,
+        'enable_em' => true,
+        'enable_strong' => true,
+        'use_asterisk' => true,
+        'use_underscore' => true,
         'unordered_list_markers' => ['-', '+', '*'],
     ],
 
@@ -151,7 +163,7 @@ return [
 
     'slug_normalizer' => [
         'max_length' => 255,
-        'unique'     => 'document',
+        'unique' => 'document',
     ],
 
 ];

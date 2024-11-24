@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use GrahamCampbell\Markdown\Facades\Markdown;
-use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\File;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 class BlogController extends Controller
 {
+    private $contentDirectory = 'views/content';
+
     /**
      * Display a listing of the resource.
      */
@@ -17,55 +20,30 @@ class BlogController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show(string $slug, YamlFrontMatter $yamlFrontMatter)
     {
-        $viewPath = "content/{$slug}";
-        $path = resource_path("views/{$viewPath}.md");
+        $path = resource_path("$this->contentDirectory/{$slug}.md");
+        abort_if(! File::exists($path), 404);
+
         $document = $yamlFrontMatter::parseFile($path);
         $content = Markdown::convert($document->body())->getContent();
 
-        return view('post', ['content' => $content, 'article' => $document]);
+        $otherPosts = [];
+        foreach ($this->getOtherposts($slug) as $post) {
+            array_push($otherPosts, $yamlFrontMatter::parseFile($post));
+        }
+
+        return view('post', ['content' => $content, 'article' => $document, 'others' => $otherPosts]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    private function getOtherposts(string $exclude)
     {
-        //
-    }
+        $files = File::files(resource_path($this->contentDirectory));
+        // TODO: Remove the post to render from the array
+        $files = Arr::random($files, 2);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return $files;
     }
 }
