@@ -1,8 +1,4 @@
-<head>
-    @vite('resources/css/app.css')
-</head>
-
-<body class="bg-black text-white h-screen">
+<x-layout>
     <article class="text-base">
         <x-post-header :title="$article->title" :publication_date="$article->publication_date" />
         {!! $content !!}
@@ -20,7 +16,7 @@
             </ul>
         </section>
     </aside>
-</body>
+</x-layout>
 
 <style>
     body {
