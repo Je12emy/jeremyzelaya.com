@@ -14,9 +14,21 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(YamlFrontMatter $yamlFrontMatter)
     {
-        return redirect(route('home'));
+        $files = File::files(resource_path($this->contentDirectory));
+
+        $data = [];
+        foreach ($files as $file) {
+            $yaml = $yamlFrontMatter::parseFile($file)->matter();
+            array_push($data, $yaml);
+        }
+
+        $sorted = Arr::sortDesc($data, function (mixed $item) {
+            return $item['publication_date'];
+        });
+
+        return view('blog.index', ['posts' => $sorted]);
     }
 
     /**
@@ -35,7 +47,7 @@ class BlogController extends Controller
             array_push($otherPosts, $yamlFrontMatter::parseFile($post));
         }
 
-        return view('post', ['content' => $content, 'article' => $document, 'others' => $otherPosts]);
+        return view('blog.show', ['content' => $content, 'article' => $document, 'others' => $otherPosts]);
     }
 
     private function getOtherposts(string $exclude)
