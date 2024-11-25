@@ -1,12 +1,23 @@
 @php
 use Carbon\Carbon;
-
-$latest = $posts[0];
-$date = Carbon::parse($latest['publication_date'])->toFormattedDateString();
 @endphp
 
 <x-blog-layout>
     <x-slot:content>
+        @if(empty($posts))
+        <article>
+            <span class="font-medium text-2xl"> huh??? </span>
+            <h1 class="text-3xl font-light"> ...there is nothing here </h1>
+            <p> If you are seeing this, you should add markdown content to the <i> content </i> directory.
+            <p>
+        </article>
+        @else
+
+        @php
+        $latest = $posts[0];
+        $date = Carbon::parse($latest['publication_date'])->toFormattedDateString();
+        @endphp
+
         <article class="flex flex-col space-y-6">
             <a href="blog/{{$latest['slug']}}">
                 <section class="flex flex-col items-center space-y-2">
@@ -46,5 +57,6 @@ $date = Carbon::parse($latest['publication_date'])->toFormattedDateString();
                 </div>
             </section>
         </article>
+        @endif
     </x-slot:content>
 </x-blog-layout>
