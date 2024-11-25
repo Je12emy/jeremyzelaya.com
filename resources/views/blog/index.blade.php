@@ -7,7 +7,7 @@ $date = Carbon::parse($latest['publication_date'])->toFormattedDateString();
 
 <x-blog-layout>
     <x-slot:content>
-        <article class="flex flex-col space-y-6 mt-4">
+        <article class="flex flex-col space-y-6">
             <a href="blog/{{$latest['slug']}}">
                 <section class="flex flex-col items-center space-y-2">
                     <header class="text-2xl font-bold"> {{$latest['title']}} </header>
