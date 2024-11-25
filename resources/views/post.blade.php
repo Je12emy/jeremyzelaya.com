@@ -4,31 +4,14 @@
 
 <body class="bg-black text-white my-4">
     <article class="text-base">
-        <header class="flex flex-col space-y-2">
-            <h1 class="text-2xl font-extrabold"> {{$article->title}} </h1>
-            <hr>
-
-            @php
-            use Carbon\Carbon;
-            $date = Carbon::parse($article->publication_date)->toFormattedDateString();
-            @endphp
-            <time datetime="{{$article->publication_date}}" class="text-md font-light"> {{$date}} </time>
-        </header>
+        <x-post-header :title="$article->title" :publication_date="$article->publication_date" />
         {!! $content !!}
     </article>
     <aside class="max-w-max">
         <section class="flex flex-col space-y-2 ">
             <header> Other Posts </header>
-            <hr>
             @foreach ($others as $other)
-            <a href="{{$other->slug}}">
-                <article class="flex flex-row space-x-2">
-                    <time datetime="{{$other->publication_date}}" class="text-md font-light">
-                        {{$other->publication_date}}
-                    </time>
-                    <header> {{$other->title}} </header>
-                </article>
-            </a>
+            <x-post-list :title="$other->title" :publication_date="$other->publication_date" :slug="$other->slug" />
             @endforeach
         </section>
     </aside>
@@ -49,10 +32,4 @@
     aside {
         grid-area: aside;
     }
-
-    .heading-permalink {
-        /* Hide the symbol */
-        display: none;
-    }
-
 </style>
