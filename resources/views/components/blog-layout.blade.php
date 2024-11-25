@@ -8,12 +8,22 @@
 <style>
     body {
         display: grid;
-        grid-template-columns: 25% 1fr 25%;
-        gap: 2rem;
         grid-template-rows: min-content;
         grid-template-areas:
-            ". nav ."
-            ". content aside";
+            "nav"
+            "content"
+            "aside";
+    }
+
+    @media screen and (min-width: 768px) {
+        body {
+            grid-template-columns: 25% 1fr 25%;
+            gap: 2rem;
+            grid-template-areas:
+                ". nav ."
+                ". content aside";
+        }
+
     }
 
     article {
