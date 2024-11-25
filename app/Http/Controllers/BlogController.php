@@ -6,10 +6,13 @@ use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
+use Symfony\Component\Finder\SplFileInfo;
 
 class BlogController extends Controller
 {
     private $contentDirectory = 'views/content';
+
+    private $otherPostsCount = 5;
 
     /**
      * Display a listing of the resource.
@@ -36,7 +39,8 @@ class BlogController extends Controller
      */
     public function show(string $slug, YamlFrontMatter $yamlFrontMatter)
     {
-        $path = resource_path("$this->contentDirectory/{$slug}.md");
+        $filename = "$this->contentDirectory/{$slug}.md";
+        $path = resource_path($filename);
         abort_if(! File::exists($path), 404);
 
         $document = $yamlFrontMatter::parseFile($path);
@@ -53,8 +57,17 @@ class BlogController extends Controller
     private function getOtherposts(string $exclude)
     {
         $files = File::files(resource_path($this->contentDirectory));
-        // TODO: Remove the post to render from the array
-        $files = Arr::random($files, 2);
+        if (empty($files)) {
+            return [];
+        }
+
+        if (count($files) < $this->otherPostsCount) {
+            return [];
+        }
+
+        $files = Arr::random(Arr::where($files, function (SplFileInfo $file) use ($exclude) {
+            return $file->getFilename() == $exclude;
+        }), $this->otherPostsCount);
 
         return $files;
     }
