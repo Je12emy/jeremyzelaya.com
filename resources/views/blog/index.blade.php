@@ -37,8 +37,9 @@ use Carbon\Carbon;
                 $date = Carbon::parse($post['publication_date'])->toFormattedDateString();
                 @endphp
                 <a href="blog/{{$post['slug']}}">
-                    <article class="flex flex-col md:flex-row md:space-x-3 md:items-start">
-                        <time class="min-w-fit text-lg md:text-xl font-light" datetime="{{$post['publication_date']}}">
+                    <article class="flex flex-col md:flex-row md:space-x-2 md:items-start">
+                        <time class="min-w-fit text-lg md:text-xl font-light md:max-w-32 md:min-w-32"
+                            datetime="{{$post['publication_date']}}">
                             {{$date}}
                         </time>
                         <div class="flex flex-col items-start space-y-2">
