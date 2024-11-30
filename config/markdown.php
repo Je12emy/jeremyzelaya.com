@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 /*
  * This file is part of Laravel Markdown.
  *
@@ -51,6 +50,9 @@ return [
         // This enables a TOC
         // League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension::class,
         // League\CommonMark\Extension\TableOfContents\TableOfContentsExtension::class,
+
+        // Syntax highlights
+        Spatie\CommonMarkShikiHighlighter\HighlightCodeExtension::class,
     ],
 
     /*

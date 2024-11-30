@@ -9,6 +9,7 @@
         "graham-campbell/markdown": "^15.2",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
+        "spatie/commonmark-shiki-highlighter": "^2.5",
         "spatie/yaml-front-matter": "^2.0"
     },
     "require-dev": {

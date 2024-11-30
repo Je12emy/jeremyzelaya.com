@@ -1,3 +1,14 @@
+---
+title: Test post
+publication_date: "2024-04-01"
+layout: something
+tags:
+    - test
+    - example
+slug: another-post
+summary: "Lorem ipsum odor amet, consectetuer adipiscing elit. Pharetra placerat rhoncus varius sociosqu massa. Dignissim per auctor fames tincidunt taciti nascetur. Vivamus pulvinar fermentum accumsan ante class."
+---
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
