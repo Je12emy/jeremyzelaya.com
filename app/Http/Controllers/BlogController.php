@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Arr;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
@@ -23,11 +23,11 @@ class BlogController extends Controller
             array_push($data, $yaml);
         }
 
-        $sorted = Arr::sortDesc($data, function (mixed $item) {
-            return $item['publication_date'];
+        $sorted = collect($data)->sortByDesc(function ($item) {
+            return Carbon::parse($item['publication_date']);
         });
 
-        return view('blog.index', ['posts' => $sorted]);
+        return view('blog.index', ['posts' => $sorted->values()->all()]);
     }
 
     /**
