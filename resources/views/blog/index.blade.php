@@ -30,7 +30,7 @@ use Carbon\Carbon;
             </section>
         </a>
         <section>
-            <header class="text-lg mb-3 font-medium"> All Articles </header>
+            <header class="text-lg mb-3 font-normal text-center"> All Articles </header>
             <div class="flex flex-col space-y-4">
                 @foreach ($posts as $post)
                 @php
