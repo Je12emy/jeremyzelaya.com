@@ -15,6 +15,7 @@ Terminal emulator and applications.
 -   [Zellij](https://zellij.dev/).
 -   [Wezterm](https://wezfurlong.org/wezterm/index.html).
 -   [Yazi](https://yazi-rs.github.io/).
+-   [Zoxide](https://github.com/ajeetdsouza/zoxide)
 
 Software.
 
