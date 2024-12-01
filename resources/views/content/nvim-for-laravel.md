@@ -1,5 +1,5 @@
 ---
-title: A working Neovim setup for Laravel
+title: Setting up neovim for Laravel development
 publication_date: "2024-11-01"
 tags:
     - nvim
